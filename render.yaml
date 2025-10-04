@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: my-minecraft-server
+    runtime: docker
+    # 指定 Docker 构建的上下文就是当前目录
+    dockerfile: Dockerfile
+    # Docker 构建的上下文路径，通常为根目录
+    dockerContext: .
+    # 自动设置端口，Minecraft 服务器使用 25565
+    port: 25565
+    # 免费实例类型
+    plan: free
+    # 环境变量 - 这是配置服务器的核心！
+    envVars:
+      - key: EULA
+        value: "TRUE"
+      - key: VERSION
+        value: "1.20.1" # 更改为你想要的版本
+      - key: TYPE
+        value: "PAPER" # 推荐使用 Paper 端以获得更好性能
+      - key: MEMORY
+        value: "2G" # 免费实例建议 2G，不要超过 Render 的限制
+      # ！！！最重要的一步：关闭正版验证，让离线客户端能进入 ！！！
+      - key: ONLINE_MODE
+        value: "false"
